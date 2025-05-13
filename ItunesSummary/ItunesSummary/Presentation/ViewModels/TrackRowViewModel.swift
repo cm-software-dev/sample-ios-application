@@ -24,7 +24,7 @@ class TrackRowViewModel: Identifiable {
     }
     
     var price: String {
-        PriceFormatter.getLocalisedPriceLabel(forCode: track.currency, price: track.trackPrice)
+        return PriceFormatter.getLocalisedPriceLabel(forCode: track.currency, price: track.trackPrice )
     }
     
     var releaseDate: Date {

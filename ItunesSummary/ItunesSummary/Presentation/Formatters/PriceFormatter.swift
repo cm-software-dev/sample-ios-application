@@ -9,7 +9,10 @@ import Foundation
 
 struct PriceFormatter {
     
-    static func getLocalisedPriceLabel(forCode currencyCode: String, price: Double) -> String {
+    static func getLocalisedPriceLabel(forCode currencyCode: String, price: Double?) -> String {
+        guard let price = price else {
+            return ""
+        }
         let currency = getCurrencySymbol(forCode: currencyCode)
         return "\(currency) \(price)"
     }

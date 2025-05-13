@@ -143,7 +143,7 @@ final class TrackListViewModelTests: XCTestCase {
     
     
     func testViewModelReturnsExpectedTitle() {
-        XCTAssertEqual("Rock Tracks", viewModel.title)
+        XCTAssertEqual("Tracks", viewModel.title)
     }
     
     

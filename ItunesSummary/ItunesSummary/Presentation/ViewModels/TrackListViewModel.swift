@@ -23,10 +23,10 @@ class TrackListViewModel: TrackListViewModelProtocol,  ObservableObject {
     @Published var errorFetching = false
     
     @Published var defaultTrackDetailViewModel: TrackDetailViewModel
-    
+    @Published var searchTerm: String = ""
     
     var title: String {
-        "\(defaultTerm.capitalized) Tracks"
+        "Tracks"
     }
     
     private let service: GetItunesTracksUseCaseProtocol
@@ -35,20 +35,31 @@ class TrackListViewModel: TrackListViewModelProtocol,  ObservableObject {
     
     init(service: GetItunesTracksUseCaseProtocol = ItunesService()) {
         self.service = service
-        
         defaultTrackDetailViewModel =  TrackDetailViewModel()
+        self.debounceSearchTermChanges()
     }
+    
+    private func debounceSearchTermChanges() {
+        $searchTerm
+            .dropFirst(1)
+                .debounce(for: 2, scheduler: RunLoop.main)
+                .sink {
+                    print("new text value: \($0)")
+                    self.fetchTracks()
+                }
+                .store(in: &disposables)
+        }
     
     
     func fetchTracks() {
         isFetching = true
         errorFetching = false
-        
-        service.fetchTracks(forTerm: defaultTerm)
+        service.fetchTracks(forTerm: !searchTerm.isEmpty ? searchTerm : defaultTerm)
             .subscribe(on: DispatchQueue.global(qos: .default))
-            .receive(on: DispatchQueue.global(qos: .default))
+            .replaceError(with: [])
             .map {
                 tracks in
+                print("Is main thread \(Thread.isMainThread)")
                 return tracks.map {TrackRowViewModel(track: $0)}.sorted(by: {$0.releaseDate  > $1.releaseDate})
             }
             .receive(on: DispatchQueue.main)

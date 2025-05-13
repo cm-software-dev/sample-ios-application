@@ -58,6 +58,7 @@ struct MasterDetailView: View {
                 TrackRowView(viewModel: track)
             }
         }
+        .searchable(text: $viewModel.searchTerm)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(viewModel.title).font(.title)

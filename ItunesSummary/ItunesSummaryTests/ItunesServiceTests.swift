@@ -40,7 +40,7 @@ final class ItunesServiceTests: XCTestCase {
         let service = ItunesService(networkService: mockNetworkService)
         mockNetworkService.testOutcome = TestOutcome.success(data: ItunesResponse(resultCount: 0, results: []))
         
-        let expectedUrlString = "https://itunes.apple.com/search?term=rock"
+        let expectedUrlString = "https://itunes.apple.com/search?term=rock&entity=song&country=GB"
         let exp = expectation(description: "get results")
         
         let cancellable = service.fetchTracks()

@@ -11,7 +11,7 @@ struct ItunesTrack: Codable {
     var trackID: Int
     var artistName: String
     var trackName: String
-    var trackPrice: Double
+    var trackPrice: Double?
     var currency: String
     var artworkUrl100: String
     var trackTimeMillis: Int
