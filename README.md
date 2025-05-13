@@ -1,6 +1,6 @@
 **ItunesSummary sample app**
 
-The app will call the Apple itunes REST API service with the search term "rock" and display the resulting list of tracks. Tapping a list item with navigate to a detail view displaying additional information and a link to open the track's iTunes page in the native browser.
+The app will call the Apple itunes REST API service with the default search term "rock" and display the resulting list of tracks. Tapping a list item with navigate to a detail view displaying additional information and a link to open the track's iTunes page in the native browser.
 The app will display as a master detail interface when used on an iPad.
 
 The app has been written using SwiftUI for the Views following the MVVM pattern and the project structured along the lines of Clean architecture although with a very thin Domain layer owing to the simplicity of the functionality. 
@@ -28,5 +28,4 @@ and calls the network service returning a Publisher for the parsed track data.
 * To more strictly follow Clean architecture the service call and sorting performed in the `TrackListViewModel` could be moved to a concrete implementation of the `GetItunesTracksUseCaseProtocol`.
 
 * The itunes API search endpoint allows for pagination, having optional `limit` and `offset` parameters, these could be used to implement infinite scrolling in the list view.
-* The app could be extended to include a search bar to allow for a user defined search term 
 
